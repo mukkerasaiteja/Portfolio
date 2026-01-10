@@ -5,8 +5,6 @@ import { TypeScriptIcon } from '../Icons/TypeScriptIcon'
 
 export const RESUME = {
   name: 'Sai Teja Mukkera',
-  initials: 'STM',
-  role: 'Software Engineer',
   about: 'Currently shipping with',
   currentTechStack: [
     { tech: 'React', icon: <ReactIcon /> },
@@ -15,11 +13,12 @@ export const RESUME = {
     { tech: 'TypeScript', icon: <TypeScriptIcon /> },
   ],
   summary:
-    ' Full Stack Developer with a passion for building clean, efficient, and user-centric web applications. Experienced in React, Node.js, and modern web technologies.',
-  location: 'United States', // Update this
-  email: 'contact@example.com', // Update this
-  github: 'https://github.com/mukkerasaiteja', // Inferred from workspace path/user
-  linkedin: 'https://linkedin.com/in/sai-teja-mukkera', // Inferred
+    ' Full Stack Developer with a passion for building scalable and efficient web applications.',
+  location: 'United States',
+  email: 'mukkerasaiteja@gmail.com',
+  github: 'https://github.com/mukkerasaiteja',
+  linkedin: 'https://linkedin.com/in/sai-teja-mukkera',
+  twitter: 'https://x.com/mukkerasaiteja',
   projects: [
     {
       title: 'Job Radar',
@@ -57,9 +56,17 @@ export const RESUME = {
   ],
   education: [
     {
-      school: 'University Name',
+      school: 'University of Central Missouri',
       degree: 'Master of Science in Computer Science',
-      period: '2019 - 2021',
+      period: 'Jan,2024 - Dec,2025',
+      location: 'Warrensburg, Missouri',
+    },
+    {
+      school: 'Guru Nanak Institute of Technology',
+      degree:
+        'Bachelor of Technology in Electronics and Communication Engineering',
+      period: 'Aug,2015 - May,2019',
+      location: 'Hyderabad, India',
     },
   ],
   skills: {

@@ -64,9 +64,7 @@ export function Hero() {
 
           {/* Tagline */}
           <p className="text-shadow-muted font- max-w-[600px] text-lg text-zinc-500 md:mx-0 md:text-xl">
-            A self-taught full-stack developer building{' '}
-            <span className="italic">scalable</span>,{' '}
-            <span className="italic">high-performance</span> web apps.
+            {RESUME.summary}
           </p>
 
           {/* About text */}
@@ -106,7 +104,7 @@ export function Hero() {
               size="default"
               className="h-9 px-4 text-sm font-semibold transition-all duration-300 hover:shadow-md sm:h-10 sm:px-6 sm:text-base md:h-11 md:px-8"
             >
-              <a href="/resume.pdf" target="_blank" rel="noreferrer">
+              <a href="/resume.pdf" target="_blank" rel="noreferrer" hidden>
                 <FileText className="mr-1.5 h-4 w-4 sm:mr-2 sm:h-5 sm:w-5" />
                 Resume
               </a>

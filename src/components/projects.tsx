@@ -83,7 +83,7 @@ export function Projects() {
               }`}
             >
               {/* Card Container */}
-              <div className="border-border/50 bg-card/30 hover:border-border hover:bg-card/50 hover:shadow-primary/5 relative h-full overflow-hidden rounded-2xl border backdrop-blur-xl transition-all duration-500 hover:shadow-2xl">
+              <div className="border-border bg-card dark:border-border/50 dark:bg-card/30 hover:shadow-primary/5 dark:hover:bg-card/50 relative h-full overflow-hidden rounded-2xl border backdrop-blur-xl transition-all duration-500 hover:shadow-2xl">
                 {/* Thumbnail - Image or Animated Gradient */}
                 <div className="relative h-40 overflow-hidden">
                   {project.image ? (

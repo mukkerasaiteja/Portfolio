@@ -1,7 +1,10 @@
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Mail } from 'lucide-react'
+import { Mail, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react'
+import emailjs from '@emailjs/browser'
+import { motion } from 'framer-motion'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -15,14 +18,25 @@ import {
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { RESUME } from '@/data/resume'
-import { LuLinkedin } from 'react-icons/lu'
-import { FaGithub } from 'react-icons/fa'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
+import { FaXTwitter } from 'react-icons/fa6'
+import { FaGithub, FaLinkedin } from 'react-icons/fa'
+
+// EmailJS Configuration
+const EMAILJS_SERVICE_ID = 'service_qmcm8i1'
+const EMAILJS_TEMPLATE_ID = 'template_3wijjkp'
+const EMAILJS_PUBLIC_KEY = 'BLam_YpahfTIJg5Oe'
 
 const formSchema = z.object({
   name: z.string().min(2, {
     message: 'Name must be at least 2 characters.',
   }),
-  email: z.string().email({
+  email: z.email({
     message: 'Please enter a valid email address.',
   }),
   message: z.string().min(10, {
@@ -30,7 +44,11 @@ const formSchema = z.object({
   }),
 })
 
+type SubmitStatus = 'idle' | 'loading' | 'success' | 'error'
+
 export function Contact() {
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>('idle')
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -40,111 +58,277 @@ export function Contact() {
     },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // In a static site, we usually use a service like Formspree or EmailJS
-    // For now, we'll just log or alert
-    console.log(values)
-    const subject = encodeURIComponent(`New Message from ${values.name}`)
-    const body = encodeURIComponent(
-      `Name: ${values.name}\nEmail: ${values.email}\n\n${values.message}`
-    )
-    window.location.href = `mailto:${RESUME.email}?subject=${subject}&body=${body}`
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setSubmitStatus('loading')
+
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name: values.name,
+          from_email: values.email,
+          message: values.message,
+          to_name: 'Sai Teja',
+        },
+        EMAILJS_PUBLIC_KEY
+      )
+
+      setSubmitStatus('success')
+      form.reset()
+
+      // Reset status after 5 seconds
+      setTimeout(() => setSubmitStatus('idle'), 5000)
+    } catch (error) {
+      console.error('EmailJS Error:', error)
+      setSubmitStatus('error')
+
+      // Reset status after 5 seconds
+      setTimeout(() => setSubmitStatus('idle'), 5000)
+    }
   }
 
+  const socialLinks = [
+    {
+      href: `mailto:${RESUME.email}`,
+      icon: Mail,
+      label: 'Email',
+      external: false,
+      color: 'group-hover:text-red-500',
+    },
+    {
+      href: RESUME.linkedin,
+      icon: FaLinkedin,
+      label: 'LinkedIn',
+      external: true,
+      color: 'group-hover:text-blue-500',
+    },
+    {
+      href: RESUME.github,
+      icon: FaGithub,
+      label: 'GitHub',
+      external: true,
+      color: 'group-hover:text-foreground',
+    },
+    {
+      href: RESUME.twitter,
+      icon: FaXTwitter,
+      label: 'X (Twitter)',
+      external: true,
+      color: 'group-hover:text-black dark:group-hover:text-white',
+    },
+  ]
+
   return (
-    <section id="contact" className="space-y-8 py-16 md:py-24">
-      <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
-        Contact
-      </h2>
-      <div className="grid gap-8 md:grid-cols-2">
-        <div className="space-y-6">
-          <p className="text-muted-foreground text-lg">
-            Have a project in mind or just want to chat? Send me an email or
-            connect on social media.
-          </p>
-          <div className="flex flex-col space-y-4">
-            <a
-              href={`mailto:${RESUME.email}`}
-              className="text-muted-foreground hover:text-foreground flex items-center space-x-2 transition-colors"
-            >
-              <Mail className="h-5 w-5" />
-              <span>{RESUME.email}</span>
-            </a>
-            {RESUME.linkedin && (
-              <a
-                href={RESUME.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                className="text-muted-foreground hover:text-foreground flex items-center space-x-2 transition-colors"
-              >
-                <LuLinkedin className="h-5 w-5" />
-                <span>LinkedIn</span>
-              </a>
-            )}
-            {RESUME.github && (
-              <a
-                href={RESUME.github}
-                target="_blank"
-                rel="noreferrer"
-                className="text-muted-foreground hover:text-foreground flex items-center space-x-2 transition-colors"
-              >
-                <FaGithub className="h-5 w-5" />
-                <span>GitHub</span>
-              </a>
-            )}
+    <section id="contact" className="py-20 md:py-32">
+      <div className="space-y-12">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="space-y-4"
+        >
+          <div className="flex items-center gap-3">
+            <div className="via-foreground/20 h-px flex-1 bg-gradient-to-r from-transparent to-transparent" />
+            <span className="text-muted-foreground text-sm font-medium tracking-widest uppercase">
+              Get In Touch
+            </span>
+            <div className="via-foreground/20 h-px flex-1 bg-gradient-to-r from-transparent to-transparent" />
           </div>
-        </div>
-        <div className="bg-card/50 rounded-lg border p-6">
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="John Doe" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input placeholder="john@example.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="message"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Message</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Type your message here."
-                        className="min-h-[120px]"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button type="submit" className="w-full">
-                Send Message
-              </Button>
-            </form>
-          </Form>
+          <h2 className="text-center text-4xl font-bold tracking-tight sm:text-5xl">
+            Contact
+          </h2>
+          <p className="text-muted-foreground mx-auto max-w-2xl text-center text-lg">
+            Have a project in mind or just want to chat? I'd love to hear from
+            you.
+          </p>
+        </motion.div>
+
+        {/* Content Grid */}
+        <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
+          {/* Left Side - Info & Social Links */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="space-y-8"
+          >
+            <div className="space-y-4">
+              <h3 className="text-2xl font-semibold">Let's Connect</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Whether you have a question, want to collaborate on a project,
+                or just want to say hi — my inbox is always open. I'll try my
+                best to get back to you as soon as possible!
+              </p>
+            </div>
+
+            {/* Social Links */}
+            <TooltipProvider delayDuration={100}>
+              <div className="flex gap-4">
+                {socialLinks.map((link, index) => (
+                  <Tooltip key={index}>
+                    <TooltipTrigger asChild>
+                      <a
+                        href={link.href}
+                        target={link.external ? '_blank' : undefined}
+                        rel={link.external ? 'noreferrer' : undefined}
+                        className="group border-border bg-card hover:border-primary/50 hover:bg-card/80 dark:bg-card/50 flex h-12 w-12 items-center justify-center rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                        aria-label={link.label}
+                      >
+                        <link.icon
+                          className={`text-muted-foreground h-5 w-5 transition-colors ${link.color}`}
+                        />
+                      </a>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{link.label}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                ))}
+              </div>
+            </TooltipProvider>
+          </motion.div>
+
+          {/* Right Side - Contact Form */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <div className="border-border bg-card dark:border-border/50 dark:bg-card/50 relative overflow-hidden rounded-2xl border p-6 shadow-lg md:p-8">
+              {/* Gradient accent */}
+              <div className="from-primary/10 via-primary/5 absolute inset-0 bg-gradient-to-br to-transparent" />
+
+              <div className="relative">
+                <h3 className="mb-6 text-xl font-semibold">Send a Message</h3>
+
+                <Form {...form}>
+                  <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="space-y-6"
+                  >
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-foreground font-medium">
+                            Name
+                            <sup className="ml-1 text-xl text-red-500">*</sup>
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="Your name"
+                              className="border-border/50 bg-background/50 focus:border-primary mt-2.5 h-11 transition-colors"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-foreground font-medium">
+                            Email
+                            <sup className="ml-1 text-xl text-red-500">*</sup>
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="your@email.com"
+                              className="border-border/50 bg-background/50 focus:border-primary mt-2 h-11 transition-colors"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="message"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-foreground font-medium">
+                            Message
+                            <sup className="ml-1 text-xl text-red-500">*</sup>
+                          </FormLabel>
+                          <FormControl>
+                            <Textarea
+                              placeholder="What's on your mind?"
+                              className="border-border/50 bg-background/50 focus:border-primary mt-2 min-h-[140px] resize-none transition-colors"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    {/* Submit Button with States */}
+                    <Button
+                      type="submit"
+                      className="bg-primary hover:bg-primary/90 h-12 w-full cursor-pointer text-base font-semibold shadow-lg transition-all duration-300 hover:shadow-xl"
+                      disabled={submitStatus === 'loading'}
+                    >
+                      {submitStatus === 'loading' && (
+                        <>
+                          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                          Sending...
+                        </>
+                      )}
+                      {submitStatus === 'idle' && (
+                        <>
+                          <Send className="mr-2 h-5 w-5" />
+                          Send Message
+                        </>
+                      )}
+                      {submitStatus === 'success' && (
+                        <>
+                          <CheckCircle className="mr-2 h-5 w-5" />
+                          Message Sent!
+                        </>
+                      )}
+                      {submitStatus === 'error' && (
+                        <>
+                          <AlertCircle className="mr-2 h-5 w-5" />
+                          Failed to Send
+                        </>
+                      )}
+                    </Button>
+
+                    {/* Status Messages */}
+                    {submitStatus === 'success' && (
+                      <motion.p
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-center text-sm text-green-600 dark:text-green-400"
+                      >
+                        Thanks for reaching out! I'll get back to you soon.
+                      </motion.p>
+                    )}
+                    {submitStatus === 'error' && (
+                      <motion.p
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-center text-sm text-red-600 dark:text-red-400"
+                      >
+                        Something went wrong. Please try again or email me
+                        directly.
+                      </motion.p>
+                    )}
+                  </form>
+                </Form>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

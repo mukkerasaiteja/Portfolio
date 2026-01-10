@@ -1,4 +1,5 @@
 import { RESUME } from '@/data/resume'
+import { LocationIcon } from '@/Icons/LocationIcon'
 
 export function Experience() {
   return (
@@ -37,20 +38,39 @@ export function Experience() {
         <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
           Education
         </h2>
-        <div className="space-y-6">
+        <div className="grid gap-6 md:grid-cols-2">
           {RESUME.education.map((edu, index) => (
             <div
               key={index}
-              className="hover:bg-muted/50 flex flex-col justify-between rounded-lg border-b p-2 pb-4 transition-colors last:border-0"
+              className="group border-border bg-card hover:border-primary/50 dark:border-border/50 dark:bg-card/50 relative overflow-hidden rounded-xl border p-6 shadow-sm transition-all duration-300 hover:shadow-lg"
             >
-              <div className="flex items-start justify-between">
-                <div>
-                  <h3 className="font-semibold">{edu.school}</h3>
-                  <p className="text-muted-foreground text-sm">{edu.degree}</p>
+              {/* Subtle gradient accent */}
+              <div className="from-primary/5 absolute inset-0 bg-gradient-to-br via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+              <div className="relative space-y-4">
+                {/* Header with school name */}
+                <div className="space-y-1">
+                  <h3 className="text-lg font-semibold tracking-tight">
+                    {edu.school}
+                  </h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    {edu.degree}
+                  </p>
                 </div>
-                <span className="text-muted-foreground text-sm tabular-nums">
-                  {edu.period}
-                </span>
+
+                {/* Divider */}
+                <div className="bg-border/50 h-px w-full" />
+
+                {/* Footer with period and location */}
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground tabular-nums">
+                    {edu.period}
+                  </span>
+                  <div className="text-muted-foreground flex items-center gap-1.5">
+                    <LocationIcon className="h-4 w-4" />
+                    <span>{edu.location}</span>
+                  </div>
+                </div>
               </div>
             </div>
           ))}

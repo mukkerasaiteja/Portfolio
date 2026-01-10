@@ -1,5 +1,6 @@
 import { RESUME } from '@/data/resume'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
+import { FaXTwitter } from 'react-icons/fa6'
 import { SiGmail } from 'react-icons/si'
 
 export const Footer = () => {
@@ -22,6 +23,17 @@ export const Footer = () => {
               aria-label="GitHub"
             >
               <FaGithub className="h-5 w-5" />
+            </a>
+          )}
+          {RESUME.twitter && (
+            <a
+              href={RESUME.twitter}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+              aria-label="X(Twitter)"
+            >
+              <FaXTwitter className="h-5 w-5" />
             </a>
           )}
           {RESUME.linkedin && (
