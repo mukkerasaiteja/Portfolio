@@ -27,7 +27,7 @@ export function Guestbook() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.15 }}
-        className="giscus-wrapper border-border/60 bg-card/50 min-h-[200px] rounded-2xl border-2 border-dashed p-6 backdrop-blur-sm sm:p-8"
+        className="giscus-wrapper border-border/60 bg-card/50 min-h-[200px] rounded-2xl border-2 border-dashed p-4 backdrop-blur-sm sm:p-8"
       >
         <Giscus
           id="comments"

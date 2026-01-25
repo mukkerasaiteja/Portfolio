@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils'
 import { MovingBorder } from '@/components/ui/moving-border'
 import { useTheme } from '@/components/theme-provider'
 import { useScroll } from '@/context/scroll-context'
+import { gitHubLink } from '@/lib/static-links'
 
 type SectionKey = 'projects' | 'skills' | 'experience' | 'contact'
 
@@ -181,7 +182,7 @@ export function Navbar() {
 
             <div className="flex items-center gap-4">
               <a
-                href="https://github.com/mukkerasaiteja"
+                href={gitHubLink}
                 target="_blank"
                 rel="noreferrer"
                 className="text-foreground rounded-full p-2 transition-colors hover:bg-gray-100 dark:hover:bg-white/10"

@@ -38,7 +38,7 @@ const cardVariants = {
 
 export function Projects() {
   return (
-    <section id="projects" className="py-20 md:py-32">
+    <section id="projects" className="py-16 md:py-32">
       <div className="space-y-12">
         {/* Section Header */}
         <motion.div

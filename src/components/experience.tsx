@@ -5,7 +5,7 @@ export function Experience() {
   return (
     <section id="experience" className="space-y-16 py-16 md:py-24">
       <div className="space-y-8">
-        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
+        <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl">
           Experience
         </h2>
         <div className="space-y-8">
@@ -35,14 +35,14 @@ export function Experience() {
       </div>
 
       <div className="space-y-8">
-        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
+        <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl">
           Education
         </h2>
         <div className="grid gap-6 md:grid-cols-2">
           {RESUME.education.map((edu, index) => (
             <div
               key={index}
-              className="group border-border bg-card hover:border-primary/50 dark:border-border/50 dark:bg-card/50 relative overflow-hidden rounded-xl border p-6 shadow-sm transition-all duration-300 hover:shadow-lg"
+              className="group border-border bg-card hover:border-primary/50 dark:border-border/50 dark:bg-card/50 relative overflow-hidden rounded-xl border p-4 shadow-sm transition-all duration-300 hover:shadow-lg sm:p-6"
             >
               {/* Subtle gradient accent */}
               <div className="from-primary/5 absolute inset-0 bg-gradient-to-br via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />

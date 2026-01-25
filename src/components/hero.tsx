@@ -63,7 +63,7 @@ export function Hero() {
           </h1>
 
           {/* Tagline */}
-          <p className="text-shadow-muted font- max-w-[600px] text-lg text-zinc-500 md:mx-0 md:text-xl">
+          <p className="text-shadow-muted font- mx-auto max-w-[600px] text-lg text-zinc-500 md:mx-0 md:text-xl">
             {RESUME.summary}
           </p>
 
@@ -73,7 +73,7 @@ export function Hero() {
               Currently shipping with
             </p>
             {/* Current TechStack with icons */}
-            <div className="flex items-center justify-center gap-2 md:justify-start">
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 md:justify-start">
               {RESUME.currentTechStack.map((techStack, index) => (
                 <span key={index} className="flex items-center gap-4">
                   <div>{techStack.icon}</div>
@@ -153,12 +153,12 @@ export function Hero() {
             </div>
 
             {/* Status badge - smaller on mobile */}
-            <div className="bg-card border-border absolute -right-1 -bottom-1 flex items-center gap-1.5 rounded-full border px-2.5 py-1 shadow-lg sm:-right-2 sm:-bottom-2 sm:gap-2 sm:px-4 sm:py-2">
-              <span className="relative flex h-2 w-2 sm:h-3 sm:w-3">
+            <div className="bg-card border-border absolute -right-1 -bottom-1 flex items-center gap-1 rounded-full border px-2 py-0.5 shadow-lg sm:-right-2 sm:-bottom-2 sm:gap-2 sm:px-4 sm:py-2">
+              <span className="relative flex h-1.5 w-1.5 sm:h-3 sm:w-3">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500 sm:h-3 sm:w-3"></span>
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-green-500 sm:h-3 sm:w-3"></span>
               </span>
-              <span className="text-xs font-medium sm:text-sm">
+              <span className="text-[10px] font-medium sm:text-sm">
                 Open to work
               </span>
             </div>

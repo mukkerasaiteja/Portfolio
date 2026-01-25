@@ -26,6 +26,12 @@ import {
 } from '@/components/ui/tooltip'
 import { FaXTwitter } from 'react-icons/fa6'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
+import {
+  emailLink,
+  gitHubLink,
+  linkedInLink,
+  twitterLink,
+} from '@/lib/static-links'
 
 // EmailJS Configuration
 const EMAILJS_SERVICE_ID = 'service_qmcm8i1'
@@ -90,28 +96,28 @@ export function Contact() {
 
   const socialLinks = [
     {
-      href: `mailto:${RESUME.email}`,
+      href: emailLink,
       icon: Mail,
       label: 'Email',
       external: false,
       color: 'group-hover:text-red-500',
     },
     {
-      href: RESUME.linkedin,
+      href: linkedInLink,
       icon: FaLinkedin,
       label: 'LinkedIn',
       external: true,
       color: 'group-hover:text-blue-500',
     },
     {
-      href: RESUME.github,
+      href: gitHubLink,
       icon: FaGithub,
       label: 'GitHub',
       external: true,
       color: 'group-hover:text-foreground',
     },
     {
-      href: RESUME.twitter,
+      href: twitterLink,
       icon: FaXTwitter,
       label: 'X (Twitter)',
       external: true,
@@ -120,7 +126,7 @@ export function Contact() {
   ]
 
   return (
-    <section id="contact" className="py-20 md:py-32">
+    <section id="contact" className="py-16 md:py-32">
       <div className="space-y-12">
         {/* Section Header */}
         <motion.div
@@ -199,7 +205,7 @@ export function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <div className="border-border bg-card dark:border-border/50 dark:bg-card/50 relative overflow-hidden rounded-2xl border p-6 shadow-lg md:p-8">
+            <div className="border-border bg-card dark:border-border/50 dark:bg-card/50 relative overflow-hidden rounded-2xl border p-4 shadow-lg md:p-8">
               {/* Gradient accent */}
               <div className="from-primary/10 via-primary/5 absolute inset-0 bg-gradient-to-br to-transparent" />
 

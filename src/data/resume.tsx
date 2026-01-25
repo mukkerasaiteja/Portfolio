@@ -70,9 +70,16 @@ export const RESUME = {
     },
   ],
   skills: {
-    languages: ['JavaScript', 'TypeScript', 'Python', 'Java'],
-    frontend: ['React', 'Next.js', 'Vue.js', 'HTML5', 'CSS3', 'Tailwind CSS'],
-    backend: ['Node.js', 'Express', 'Django', 'PostgreSQL', 'MongoDB'],
-    tools: ['Git', 'Docker', 'AWS', 'Figma'],
+    languages: ['Java', 'JavaScript', 'TypeScript', 'Python'],
+    frontend: ['React', 'Next.js', 'HTML5', 'CSS3', 'Tailwind CSS'],
+    backend: [
+      'Spring Boot',
+      'Node.js',
+      'Express',
+      'PostgreSQL',
+      'MongoDB',
+      'Prisma ORM',
+    ],
+    tools: ['Git', 'Docker', 'AWS'],
   },
 }

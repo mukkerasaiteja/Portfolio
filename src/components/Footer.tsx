@@ -1,4 +1,10 @@
 import { RESUME } from '@/data/resume'
+import {
+  emailLink,
+  gitHubLink,
+  linkedInLink,
+  twitterLink,
+} from '@/lib/static-links'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 import { SiGmail } from 'react-icons/si'
@@ -14,9 +20,9 @@ export const Footer = () => {
         </div>
 
         <div className="flex gap-4">
-          {RESUME.github && (
+          {gitHubLink && (
             <a
-              href={RESUME.github}
+              href={gitHubLink}
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-foreground transition-colors"
@@ -25,9 +31,9 @@ export const Footer = () => {
               <FaGithub className="h-5 w-5" />
             </a>
           )}
-          {RESUME.twitter && (
+          {twitterLink && (
             <a
-              href={RESUME.twitter}
+              href={twitterLink}
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-foreground transition-colors"
@@ -36,9 +42,9 @@ export const Footer = () => {
               <FaXTwitter className="h-5 w-5" />
             </a>
           )}
-          {RESUME.linkedin && (
+          {linkedInLink && (
             <a
-              href={RESUME.linkedin}
+              href={linkedInLink}
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground transition-colors hover:text-blue-700"
@@ -47,9 +53,9 @@ export const Footer = () => {
               <FaLinkedin className="h-5 w-5" />
             </a>
           )}
-          {RESUME.email && (
+          {emailLink && (
             <a
-              href={`mailto:${RESUME.email}`}
+              href={emailLink}
               className="text-muted-foreground transition-colors hover:text-[#EA4335]"
               aria-label="Email"
             >

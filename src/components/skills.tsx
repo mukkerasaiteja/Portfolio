@@ -2,10 +2,8 @@ import { useState } from 'react'
 import {
   SiAmazonwebservices,
   SiCss3,
-  SiDjango,
   SiDocker,
   SiExpress,
-  SiFigma,
   SiGit,
   SiHtml5,
   SiJavascript,
@@ -13,11 +11,12 @@ import {
   SiNextdotjs,
   SiNodedotjs,
   SiPostgresql,
+  SiPrisma,
   SiPython,
   SiReact,
+  SiSpringboot,
   SiTailwindcss,
   SiTypescript,
-  SiVuedotjs,
 } from 'react-icons/si'
 import { FaJava } from 'react-icons/fa'
 import {
@@ -33,25 +32,24 @@ import { cn } from '@/lib/utils'
 
 // Map skills to their icons and brand colors
 const skillsData: Record<string, { icon: React.ElementType; color: string }> = {
+  'Spring Boot': { icon: SiSpringboot, color: '#6DB33F' },
+  Java: { icon: FaJava, color: '#ED8B00' },
   JavaScript: { icon: SiJavascript, color: '#F7DF1E' },
   TypeScript: { icon: SiTypescript, color: '#3178C6' },
   Python: { icon: SiPython, color: '#4B8BBE' },
-  Java: { icon: FaJava, color: '#ED8B00' },
   React: { icon: SiReact, color: '#61DAFB' },
   'Next.js': { icon: SiNextdotjs, color: '#FFFFFF' },
-  'Vue.js': { icon: SiVuedotjs, color: '#42B883' },
   HTML5: { icon: SiHtml5, color: '#E34F26' },
   CSS3: { icon: SiCss3, color: '#1572B6' },
   'Tailwind CSS': { icon: SiTailwindcss, color: '#38BDF8' },
   'Node.js': { icon: SiNodedotjs, color: '#68A063' },
   Express: { icon: SiExpress, color: '#FFFFFF' },
-  Django: { icon: SiDjango, color: '#44B78B' },
   PostgreSQL: { icon: SiPostgresql, color: '#4169E1' },
   MongoDB: { icon: SiMongodb, color: '#4DB33D' },
+  'Prisma ORM': { icon: SiPrisma, color: '#2D3748' },
   Git: { icon: SiGit, color: '#F05032' },
   Docker: { icon: SiDocker, color: '#2496ED' },
   AWS: { icon: SiAmazonwebservices, color: '#FF9900' },
-  Figma: { icon: SiFigma, color: '#A259FF' },
 }
 
 type Category = 'all' | 'languages' | 'frontend' | 'backend' | 'tools'
@@ -69,12 +67,20 @@ export function Skills() {
 
   const getSkillsByCategory = (category: Category): string[] => {
     if (category === 'all') {
-      return [
+      const skills = [
         ...RESUME.skills.languages,
         ...RESUME.skills.frontend,
         ...RESUME.skills.backend,
         ...RESUME.skills.tools,
       ]
+
+      // Prioritize Java and Spring Boot
+      const prioritySkills = ['Java', 'Spring Boot']
+      const otherSkills = skills.filter(
+        (skill) => !prioritySkills.includes(skill)
+      )
+
+      return [...prioritySkills, ...otherSkills]
     }
     return RESUME.skills[category] || []
   }
@@ -86,7 +92,10 @@ export function Skills() {
   const currentSkills = getSkillsByCategory(activeCategory)
 
   return (
-    <section id="skills" className="container px-24 py-16 md:py-24">
+    <section
+      id="skills"
+      className="container mx-auto px-4 py-16 sm:px-8 md:px-24 md:py-24"
+    >
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
