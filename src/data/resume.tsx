@@ -2,6 +2,15 @@ import { ReactIcon } from '../Icons/ReactIcon'
 import { SpringIcon } from '../Icons/SpringIcon'
 import { NodeIcon } from '../Icons/NodeIcon'
 import { TypeScriptIcon } from '../Icons/TypeScriptIcon'
+import {
+  gitHubLink,
+  gitLinkForJobRadar,
+  gitLinkForPortfolio,
+  jobRadarLink,
+  linkedInLink,
+  portfolioLink,
+  twitterLink,
+} from '@/lib/static-links'
 
 export const RESUME = {
   name: 'Sai Teja Mukkera',
@@ -16,17 +25,17 @@ export const RESUME = {
     ' Full Stack Developer with a passion for building scalable and efficient web applications.',
   location: 'United States',
   email: 'mukkerasaiteja@gmail.com',
-  github: 'https://github.com/mukkerasaiteja',
-  linkedin: 'https://linkedin.com/in/sai-teja-mukkera',
-  twitter: 'https://x.com/mukkerasaiteja',
+  github: gitHubLink,
+  linkedin: linkedInLink,
+  twitter: twitterLink,
   projects: [
     {
       title: 'Job Radar',
       description:
         'A job search platform that helps users find job opportunities based on their skills and experience.',
       tech: ['React', 'Javascript', 'Node.js', 'Tailwind CSS', 'Shadcn UI'],
-      link: 'https:job-radar.vercel.app',
-      github: 'https://github.com/mukkerasaiteja/job-radar',
+      link: jobRadarLink,
+      github: gitLinkForJobRadar,
       image: '/Job-Radar.jpg',
     },
     {
@@ -34,8 +43,8 @@ export const RESUME = {
       description:
         'A portfolio website built with React, Typescript, Shadcn UI and Tailwind CSS.',
       tech: ['React', 'Typescript', 'Shadcn UI', 'Tailwind CSS'],
-      link: 'https:saiteja-dev-portfolio.vercel.app',
-      github: 'https://github.com/mukkerasaiteja/portfolio',
+      link: portfolioLink,
+      github: gitLinkForPortfolio,
       image: '/portfolio.jpg',
     },
   ],
