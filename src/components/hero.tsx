@@ -146,7 +146,7 @@ export function Hero() {
             {/* Photo - smaller on mobile */}
             <div className="border-background relative h-24 w-24 overflow-hidden rounded-full border-4 shadow-xl transition-transform duration-500 hover:scale-105 sm:h-32 sm:w-32 md:h-48 md:w-48 lg:h-64 lg:w-64">
               <img
-                src="/profile_photo.jpg"
+                src="/profile_photo.webp"
                 alt={`${RESUME.name}'s profile photo`}
                 className="h-full w-full object-cover object-top"
               />
