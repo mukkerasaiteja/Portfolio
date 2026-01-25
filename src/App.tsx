@@ -5,7 +5,7 @@ import { Navbar } from '@/components/navbar'
 import { HomePage } from '@/pages/home-page'
 import { GuestbookPage } from '@/pages/guestbook-page'
 import { Footer } from './components/Footer'
-import { Analytics } from '@vercel/analytics/next'
+import { Analytics } from '@vercel/analytics/react'
 
 function App() {
   return (
